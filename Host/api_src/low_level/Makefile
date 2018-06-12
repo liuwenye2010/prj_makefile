@@ -45,9 +45,13 @@ all: clean $(TEST_TEMP_LIBS) $(TEST_INTERFACE_A_LIBS)  $(TEST_INTERFACE_B_LIBS)
 #%.test : %.cpp
 #	$(CXX) $(CXXFLAGS) $< -o $@
 	
-%.o: %.cpp 
+
+
+#%.o:%.cpp
+$(TEST_OBJS):$(TEST_SRCS)
 	$(CXX) $(CXXFLAGS) -c $<
 	
+
 $(TEST_TEMP_LIBS): $(TEST_OBJS)
 	$(AR) $(ARFLAGS) $@  $<
 

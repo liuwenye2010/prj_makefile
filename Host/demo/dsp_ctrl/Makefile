@@ -3,6 +3,7 @@
 # https://www3.ntu.edu.sg/home/ehchua/programming/cpp/gcc_make.html
 # http://gcc.gnu.org/onlinedocs/
 # http://www.gnu.org/software/make/manual/make.html
+# https://blog.csdn.net/pengfei240/article/details/55228228
 #==============================================================================
 
 CXX=g++
@@ -16,8 +17,12 @@ CXXFLAGS+=-I$(HOST_ROOT)/api/mid_level/include \
 LDFLAGS+=-L$(HOST_ROOT)/api/mid_level/lib \
   -L$(HOST_ROOT)/api/top_level/lib 
 
-LIBS=-lmid -ltop 
+LIBS=-lmid -ltop
+#LIBS=-linterface_a  -linterface_b  -llow 
 
+#CXXFLAGS+=-ffunction-sections -fdata-sections
+
+LDFLAGS+=-Wl,--gc-sections
 
 $(info AR is $(AR))
 $(info ARFLAGS is $(ARFLAGS)) 

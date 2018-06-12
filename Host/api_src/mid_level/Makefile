@@ -37,10 +37,12 @@ all: $(TEST_LIBS)
 #%.test : %.cpp
 #	$(CXX) $(CXXFLAGS) $< -o $@
 	
-%.o: %.cpp 
+#%.o:%.cpp
+$(TEST_OBJS):$(TEST_SRCS)
 	$(CXX) $(CXXFLAGS) -c $<
-	
-$(TEST_LIBS): *.o
+
+#$(TEST_LIBS):*.o	
+$(TEST_LIBS):$(TEST_OBJS)
 	$(AR) $(ARFLAGS) $@  $<
 
 clean:

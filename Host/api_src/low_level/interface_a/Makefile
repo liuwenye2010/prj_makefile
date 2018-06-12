@@ -18,6 +18,7 @@ HOST_ROOT := ../../..
 CXXFLAGS=-I$(HOST_ROOT)/api/low_level/interface_a/include 
 TARGET_PATH=$(HOST_ROOT)/api/low_level/interface_a/lib
    
+#CXXFLAGS += -ffunction-sections -fdata-sections
 
 
 TEST_SRCS=\
@@ -36,12 +37,16 @@ all: $(TEST_LIBS)
 
 #%.test : %.cpp
 #	$(CXX) $(CXXFLAGS) $< -o $@
-	
-%.o: %.cpp 
+
+#%.o:%.cpp
+$(TEST_OBJS):$(TEST_SRCS)
 	$(CXX) $(CXXFLAGS) -c $<
-	
-$(TEST_LIBS): *.o
+
+#$(TEST_LIBS):*.o	
+$(TEST_LIBS):$(TEST_OBJS)
 	$(AR) $(ARFLAGS) $@  $<
+	
+
 
 clean:
 	rm -f $(TEST_TARGETS) $(TEST_OBJS) $(TEST_LIBS)

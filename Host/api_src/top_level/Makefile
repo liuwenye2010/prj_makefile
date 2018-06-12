@@ -3,6 +3,7 @@
 # https://www3.ntu.edu.sg/home/ehchua/programming/cpp/gcc_make.html
 # http://gcc.gnu.org/onlinedocs/
 # http://www.gnu.org/software/make/manual/make.html
+# https://blog.csdn.net/pengfei240/article/details/55228228
 #==============================================================================
 
 CXX=g++
@@ -18,7 +19,7 @@ HOST_ROOT := ../..
 CXXFLAGS=-I$(HOST_ROOT)/api/top_level/include 
 TARGET_PATH=$(HOST_ROOT)/api/top_level/lib
  
-
+#CXXFLAGS+=-ffunction-sections -fdata-sections
 
 TEST_SRCS=\
 	top.cpp
@@ -38,11 +39,15 @@ all: $(TEST_LIBS)
 #%.test : %.cpp
 #	$(CXX) $(CXXFLAGS) $< -o $@
 	
-%.o: %.cpp 
+#%.o:%.cpp
+$(TEST_OBJS):$(TEST_SRCS)
 	$(CXX) $(CXXFLAGS) -c $<
-	
-$(TEST_LIBS):*.o
+
+#$(TEST_LIBS):*.o	
+$(TEST_LIBS):$(TEST_OBJS)
 	$(AR) $(ARFLAGS) $@  $<
+
+
 
 clean:
 	rm -f $(TEST_TARGETS) $(TEST_OBJS) $(TEST_LIBS)
