@@ -18,9 +18,19 @@ dis-obj			= $(TARGET).dis
 size-obj		= $(TARGET).size 
 bin-obj			= $(TARGET).bin
 bin-map         = $(TARGET).map
+target_all      = $(TARGET)
 
-target_all      = $(TARGET) $(dis-obj) $(size-obj) $(bin-obj) $(bin-map)  
-
+ifeq ($(OS), Windows_NT)
+   $(info "Platform = Windows_NT")
+else 
+  ifeq ($(shell uname), Darwin)
+	$(info "Platform = Darwin")
+    target_all += $(dis-obj) $(size-obj) $(bin-obj) $(bin-map)  
+  else
+   $(info "Platform = Unix/Linux")
+    target_all += $(dis-obj) $(size-obj) $(bin-obj) $(bin-map)  
+  endif 
+endif 
 
 all:$(target_all) 
 
